@@ -9,3 +9,5 @@ const userSchema = new Schema({
   department: { type: String, required: true },
   image: { type: String },
 });
+
+export default model("User", userSchema);
