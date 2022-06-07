@@ -17,9 +17,9 @@ userRouter
   .put(updateSingleUser)
   .delete(deleteSingleUser);
 
-// userRouter.post("/signup", signUp);
-// userRouter.post("/login", logIn);
-// userRouter.get("/verify", verifyToken, verifySession);
+userRouter.post("/signup", signUp);
+userRouter.post("/login", logIn);
+userRouter.get("/verify", verifyToken, verifySession);
 
 //User
 
