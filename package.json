@@ -1,0 +1,40 @@
+{
+  "name": "hybrid-desk-backend",
+  "version": "1.0.0",
+  "description": "app for booking hybrid working desk",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubicode01/hybrid-desk-backend.git"
+  },
+  "keywords": [
+    "hybrid",
+    "desk",
+    "app",
+    "booking",
+    "react",
+    "bootstrap",
+    "express",
+    "node"
+  ],
+  "author": "Christian Scholtysik, Ivana Palla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rubicode01/hybrid-desk-backend/issues"
+  },
+  "homepage": "https://github.com/rubicode01/hybrid-desk-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.5",
+    "pg": "^8.7.3"
+  }
+}
