@@ -35,6 +35,41 @@ export const createNewUser = async (req, res) => {
   }
 };
 
+export const getSingleUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const singleUser = await User.findById(id);
+    res.status(200).json(singleUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const updateSingleUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { first_name, last_name, email } = req.body;
+    const modifiedUser = await User.findByIdAndUpdate(
+      id,
+      { first_name, last_name, email },
+      { new: true }
+    );
+    res.status(200).json(modifiedUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const deleteSingleUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteUser = await User.findByIdAndDelete(id);
+    res.status(200).json(deleteUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 // import pool from "../db/pg.js";
 
 // export const getAllUsers = (req, res) => {

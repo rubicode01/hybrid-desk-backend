@@ -2,16 +2,21 @@ import express from "express";
 import {
   getAllUsers,
   createNewUser,
+  getSingleUser,
+  updateSingleUser,
   // updateSingleUser,
-  // deleteSingleUser,
-  // getSingleUser,
+  deleteSingleUser,
 } from "../controllers/userControllers.js";
 
 const userRouter = express.Router();
 
 //Allgemein / Must have // USER ROUTER
 userRouter.route("/").get(getAllUsers).post(createNewUser);
-// userRouter.route("/:id").get(getSingleUser);
+userRouter
+  .route("/:id")
+  .get(getSingleUser)
+  .put(updateSingleUser)
+  .delete(deleteSingleUser);
 
 // .put(updateSingleUser)
 // .delete(deleteSingleUser);

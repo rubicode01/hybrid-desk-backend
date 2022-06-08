@@ -1,18 +1,20 @@
-// import express from "express";
-// import { getAllUsers, createNewUser } from "../controllers/userControllers.js";
+import express from "express";
+import { savePlace, getAllPlaces } from "../controllers/placeController.js";
 
-// const placeRouter = express.Router();
+const placeRouter = express.Router();
 
-// //Allgemein
-// placeRouter.route("/:id/location").post(chooseLocation);
-// placeRouter.route("/:id/workplace").post(chooseWorkplace);
-// //Nice to have
-// // placeRouter.route("/:id/meetingroom").post(chooseMeetingroom);
-// placeRouter.route("/:id/date").post(chooseDate);
-// placeRouter.route("/:id/time").post(chooseTime);
-// placeRouter.route("/:id/floor").post(chooseFloor);
-// placeRouter.route("/:id/seat").post(chooseSeat);
-// placeRouter.route("/:id/overview").post(bookingOverview);
-// // placeRouter.route("/:id/history").post(bookingHistory);
+//Allgemein
 
-// export default placeRouter;
+placeRouter.route("/").get(getAllPlaces).post(savePlace);
+
+// placeRouter.route("/:id/place/workplace").post(saveWorkplace);
+//Nice to have
+// placeRouter.route("/:id/place/meetingroom").post(chooseMeetingroom);
+// placeRouter.route("/:id/place/date").post(saveDate);
+// placeRouter.route("/:id/place/time").post(saveTime);
+// placeRouter.route("/:id/place/floor").post(saveFloor);
+// placeRouter.route("/:id/place/seat").post(saveSeat);
+// placeRouter.route("/:id/place/overview").post(bookingOverview);
+// placeRouter.route("/:id/place/history").post(bookingHistory);
+
+export default placeRouter;
