@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-const userSchema = new Schema({
+const userSchema = Schema({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -10,6 +10,6 @@ const userSchema = new Schema({
   department: { type: String },
   company: { type: String },
   image: { type: String },
+  newPlace: [{ type: Schema.Types.ObjectId, ref: "Place" }],
 });
-
 export default model("User", userSchema);

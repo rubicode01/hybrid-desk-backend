@@ -2,6 +2,8 @@ import "dotenv/config.js";
 import "./db/client.js";
 import express from "express";
 import userRouter from "./routes/userRouter.js";
+import placeRouter from "./routes/placeRouter.js";
+// import cors from "cors";
 // import placeRouter from "./routes/placeRouter.js";
 
 // import protectedRoute from "./routes/protectedRoutes.js";
@@ -18,12 +20,13 @@ const port = process.env.PORT || 5000;
 // };
 // app.use(cors(corsOptions));
 app.use(express.json());
-
+// app.use(cors());
 //Router User // Home Router
-app.use("/", userRouter);
+app.use("/api/user", userRouter);
 
 //Router Place
-// app.use("/booking", placeRouter);
+app.use("/api/place", placeRouter);
+app.get("/", (req, res) => res.send("<h1>This shall be our Pokemon API!</h1>"));
 
 // app.use("/info", protectedRoute);
 
