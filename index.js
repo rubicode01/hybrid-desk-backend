@@ -1,7 +1,8 @@
 import "dotenv/config.js";
+import "./db/client.js";
 import express from "express";
 import userRouter from "./routes/userRouter.js";
-import placeRouter from "./routes/placeRouter.js";
+// import placeRouter from "./routes/placeRouter.js";
 
 // import protectedRoute from "./routes/protectedRoutes.js";
 // import users from "./routes/userRouter.js";
@@ -18,11 +19,11 @@ const port = process.env.PORT || 5000;
 // app.use(cors(corsOptions));
 app.use(express.json());
 
-//Router User
+//Router User // Home Router
 app.use("/", userRouter);
 
 //Router Place
-app.use("/booking", placeRouter);
+// app.use("/booking", placeRouter);
 
 // app.use("/info", protectedRoute);
 

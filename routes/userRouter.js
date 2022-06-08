@@ -2,24 +2,24 @@ import express from "express";
 import {
   getAllUsers,
   createNewUser,
-  updateSingleUser,
-  deleteSingleUser,
-  getSingleUser,
+  // updateSingleUser,
+  // deleteSingleUser,
+  // getSingleUser,
 } from "../controllers/userControllers.js";
 
 const userRouter = express.Router();
 
-//Allgemein
+//Allgemein / Must have // USER ROUTER
 userRouter.route("/").get(getAllUsers).post(createNewUser);
-userRouter
-  .route("/:id")
-  .get(getSingleUser)
-  .put(updateSingleUser)
-  .delete(deleteSingleUser);
+// userRouter.route("/:id").get(getSingleUser);
 
-userRouter.post("/signup", signUp);
-userRouter.post("/login", logIn);
-userRouter.get("/verify", verifyToken, verifySession);
+// .put(updateSingleUser)
+// .delete(deleteSingleUser);
+
+//Nice to have
+// userRouter.post("/signup", signUp);
+// userRouter.post("/login", logIn);
+// userRouter.get("/verify", verifyToken, verifySession);
 
 //User
 
