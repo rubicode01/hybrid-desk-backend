@@ -3,6 +3,7 @@ import "./db/client.js";
 import express from "express";
 import userRouter from "./routes/userRouter.js";
 import placeRouter from "./routes/placeRouter.js";
+import reservationRouter from "./routes/reservationRouter.js";
 // import cors from "cors";
 // import placeRouter from "./routes/placeRouter.js";
 
@@ -26,7 +27,11 @@ app.use("/api/user", userRouter);
 
 //Router Place
 app.use("/api/place", placeRouter);
-app.get("/", (req, res) => res.send("<h1>This shall be our Pokemon API!</h1>"));
+
+//Route Reservation
+app.use("/api/reservation", reservationRouter);
+
+app.get("/", (req, res) => res.send("<h1>API!</h1>"));
 
 // app.use("/info", protectedRoute);
 

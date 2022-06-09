@@ -1,11 +1,11 @@
 import express from "express";
-import { savePlace, getAllPlaces } from "../controllers/placeController.js";
+import { getAllPlaces, createPlace } from "../controllers/placeController.js";
 
 const placeRouter = express.Router();
 
 //Allgemein
 
-placeRouter.route("/").get(getAllPlaces).post(savePlace);
+placeRouter.route("/").get(getAllPlaces).post(createPlace);
 
 // placeRouter.route("/:id/place/workplace").post(saveWorkplace);
 //Nice to have

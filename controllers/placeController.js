@@ -3,13 +3,13 @@ import Place from "../models/Place.js";
 export const getAllPlaces = async (req, res) => {
   try {
     const allPlaces = await Place.find();
-    res.status(200).json({ place: allPlaces });
+    res.status(200).json({ places: allPlaces });
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-export const savePlace = async (req, res) => {
+export const createPlace = async (req, res) => {
   try {
     const { location, workplace, meetingroom, date, time, floor, seat } =
       req.body;
@@ -22,7 +22,7 @@ export const savePlace = async (req, res) => {
       floor,
       seat,
     });
-    res.staus(201).json(newPlace);
+    res.status(201).json(newPlace);
   } catch (error) {
     res.status(500).json("not possible");
   }
