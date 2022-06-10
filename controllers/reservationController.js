@@ -1,11 +1,26 @@
 import Reservation from "../models/Reservation.js";
 
+// export const getAllReservations = async (req, res) => {
+//   try {
+//     const allReservations = await Reservation.find();
+//     res.status(200).json({ reservations: allReservations });
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// };
+
 export const getAllReservations = async (req, res) => {
   try {
-    const allReservations = await Reservation.find();
-    res.status(200).json({ reservations: allReservations });
+    const allReservations = await Reservation.find(req.query).populate(
+      "user place"
+    );
+    res.json({
+      success: true,
+      data: allReservations,
+      msg: "show all reservations",
+    });
   } catch (error) {
-    res.status(500).json(error);
+    console.log(error);
   }
 };
 
