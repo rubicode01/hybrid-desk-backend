@@ -13,4 +13,4 @@ const userSchema = new Schema({
   image: { type: String },
   // newPlace: [{ type: Schema.Types.ObjectId, ref: "Place" }],
 });
-export default model("User", userSchema);
+export default model("User", userSchema, "users");

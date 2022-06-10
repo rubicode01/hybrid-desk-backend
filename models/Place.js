@@ -15,4 +15,4 @@ const placeSchema = new Schema({
   // user: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-export default model("Place", placeSchema);
+export default model("Place", placeSchema, "places");
