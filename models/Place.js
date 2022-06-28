@@ -10,12 +10,12 @@ const placeSchema = new Schema({
   unavailable: {
     type: [
       {
-        from: { type: date },
-        to: { type: date },
+        from: { type: Date },
+        to: { type: Date },
       },
     ],
   },
-  floor: { type: Number },
+  // floor: { type: Number },
   seat: { type: Number },
 
   // user: [{ type: Schema.Types.ObjectId, ref: "User" }],

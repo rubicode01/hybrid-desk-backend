@@ -1,49 +1,79 @@
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-export const getAllUsers = async (req, res) => {
+export const signUp = async (req, res) => {
   try {
-    const allUser = await User.find();
-    res.status(200).json({ users: allUser });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-export const createNewUser = async (req, res) => {
-  try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      department,
-      company,
-      image,
-    } = req.body;
+    const { first_name, last_name, email, password, image } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       first_name,
       last_name,
       email,
-      password,
-      department,
-      company,
+      password: hashedPassword,
       image,
     });
-    res.status(201).json(newUser);
+
+    //token
+
+    const token = jwt.sign(
+      { first_name: newUser.first_name },
+      { last_name: newUser.last_name },
+      { email: newUser.email }, //payload
+      process.env.JWT_SECRET, // secret
+      { expiresIn: "1h" } // options
+      // { image: newUser.image } //?? check
+    );
+    if (token && newUser) {
+      res
+        .status(201)
+        .set("Authorization", token)
+        .send("Account successfully created");
+    }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
-export const getSingleUser = async (req, res) => {
+export const logIn = async (req, res) => {
   try {
-    const { id } = req.params;
-    const singleUser = await User.findById(id);
-    res.status(200).json(singleUser);
+    const { email, password } = req.body;
+    //User finden
+    const findUser = await User.findOne({ email }).select("+password");
+    //Checken, ob PW korrekt
+    const isPasswordCorrect = await bcrypt.compare(password, findUser.password);
+    console.log(isPasswordCorrect); //returnt true oder false
+    //Falls ja token kreieren und zurückschicken
+    if (isPasswordCorrect) {
+      const token = jwt.sign(
+        { email: findUser.email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      res.status(200).set("Authorization", token).send("Login successful");
+    } else {
+      res.status(401).send("Unauthorized");
+    }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: error.message });
   }
 };
+
+export const getUserInfo = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const findUser = await User.findOne({ email });
+    res.status(200).json(findUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const verifySession = (req, res) => {
+  res.status(200).send("Token successfully verified");
+};
+
+//???
 
 export const updateSingleUser = async (req, res) => {
   try {
@@ -60,6 +90,26 @@ export const updateSingleUser = async (req, res) => {
   }
 };
 
+//Admin
+export const getAllUsers = async (req, res) => {
+  try {
+    const allUser = await User.find();
+    res.status(200).json({ users: allUser });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const getSingleUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const singleUser = await User.findById(id);
+    res.status(200).json(singleUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const deleteSingleUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -69,70 +119,3 @@ export const deleteSingleUser = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
-// import pool from "../db/pg.js";
-
-// export const getAllUsers = (req, res) => {
-//   pool
-//     .query("SELECT * FROM users")
-//     .then((data) => res.status(200).json({ user: data.rows }))
-//     .catch((err) => console.log(err));
-// };
-
-// export const createNewUser = (req, res) => {
-//   const { first_name, last_name, department, email, image_url } = req.body;
-//   pool
-//     .query(
-//       "INSERT INTO users (first_name, last_name, department, email, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-//       [first_name, last_name, department, email, image_url]
-//     )
-//     .then((data) => res.status(201).json(data.rows[0]))
-//     .catch((err) => res.status(500).json(err));
-// };
-
-// export const getSingleUser = (req, res) => {
-//   const { id } = req.params;
-
-//   pool
-//     .query("SELECT * FROM users WHERE id=$1", [id])
-//     .then((data) => {
-//       if (data.rowCount == 0) {
-//         res.status(404).send("There is no user matching this ID");
-//       } else {
-//         res.status(200).json(data.rows[0]);
-//       }
-//     })
-//     .catch((err) => res.status(500).json("user not found"));
-// };
-
-// export const updateSingleUser = (req, res) => {
-//   const { id } = req.params;
-//   const { first_name, last_name, department, email } = req.body;
-//   pool
-//     .query(
-//       "UPDATE users SET first_name=$1, last_name=$2, department=$3, email=$4 WHERE id=$5 RETURNING*;",
-//       [first_name, last_name, department, email, id]
-//     )
-//     .then((data) => {
-//       if (data.rowCount == 0) {
-//         res.status(404).send("There is no user matching this ID");
-//       } else {
-//         res.status(200).json(data.rows[0]);
-//       }
-//     })
-//     .catch((err) => res.status(500).json(err));
-// };
-
-// export const deleteSingleUser = (req, res) => {
-//   const { id } = req.params;
-//   pool
-//     .query("DELETE FROM users WHERE id=$1", [id])
-//     .then((data) => {
-//       if (data.rowCount == 0) {
-//         res.status(404).send("There is no user matching this ID");
-//       } else {
-//         res.status(200).send("User successfully deleted.");
-//       }
-//     })
-//     .catch((err) => res.status(500).json(err));
-// };
