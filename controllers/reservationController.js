@@ -35,9 +35,12 @@ export const deleteAllReservations = async (req, res) => {
 
 export const createReservation = async (req, res) => {
   try {
-    const { user, place } = req.body;
+    const { location, datetime } = req.query;
     const newReservation = await Reservation.create(
       { user, place }
+      // const { user, place } = req.body;
+      // const newReservation = await Reservation.create(
+      //   { user, place }
       // user,
       // // {
       // //   first_name,
@@ -52,7 +55,7 @@ export const createReservation = async (req, res) => {
     );
     res.staus(201).json(newReservation);
   } catch (error) {
-    res.status(500).json("not possible");
+    res.status(500).json("Reservation successfully!");
   }
 };
 
@@ -60,7 +63,7 @@ export const deleteReservation = async (req, res) => {
   try {
     const { id } = req.params;
     await Reservation.findByIdAndDelete(id);
-    res.status(200).send("User successfully deleted");
+    res.status(200).send("Reservation successfully deleted!");
   } catch (error) {
     res.status(500).json(error);
   }

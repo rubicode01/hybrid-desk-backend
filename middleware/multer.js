@@ -12,7 +12,7 @@ const fileStorageEngine = multer.diskStorage({
     cb(null, "./images"); //important this is a direct path from our current file to storage location
   },
   filename: (req, file, cb) => {
-    cb(null, {user{firstName lastName}});
+    cb(null, {user{firstName: lastName}});
   },
 });
 
