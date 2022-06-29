@@ -18,8 +18,7 @@ const reservationSchema = new Schema({
   },
 
   // zeitraum (von /bis) der User den Platz in anspuch nehmen will
-  from: { type: Date },
-  to: { type: Date },
+  date: { type: Date },
 
   // user: [{ type: Schema.Types.ObjectId, ref: "User" }],
   // newPlace: [{ type: Schema.Types.ObjectId, ref: "Place" }],

@@ -1,14 +1,12 @@
 import Place from "../models/Place.js";
 
-export const getAllPlaces = async (req, res) => {
-  try {
-    const allPlaces = await Place.find();
-    res.status(200).json({ places: allPlaces });
-  } catch (error) {
-    res.status(500).json(error);
-  }
+export const getAllAvailablePlacesbyLocation = async (req, res) => {
+  //location & selectedDate aus req.query
+  //Abfrage der Places Collection (mit .find())
+  //find all documents (1 document = ein Sitzplatz) wo location=location aus der query & selectedDate ist nicht im unavailable array
 };
 
+//den controller benutzen ausschließlich Admins
 export const createPlace = async (req, res) => {
   try {
     const { location, workplace, meetingroom, date, time, floor, seat } =
