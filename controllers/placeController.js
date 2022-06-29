@@ -1,6 +1,14 @@
 import Place from "../models/Place.js";
 
 export const getAllAvailablePlacesbyLocation = async (req, res) => {
+  try {
+    const { location, date } = req.query;
+    const findAllAvailablePlaces = await Place.find({ location, date });
+    res.status(201).json(findAllAvailablePlaces);
+  } catch (error) {
+    res.status(500).json("not possible");
+  }
+
   //location & selectedDate aus req.query
   //Abfrage der Places Collection (mit .find())
   //find all documents (1 document = ein Sitzplatz) wo location=location aus der query & selectedDate ist nicht im unavailable array
