@@ -9,7 +9,11 @@ const reservationRouter = express.Router();
 
 //Allgemein
 
-reservationRouter.route("/").get(getAllReservations).post(createReservation);
-reservationRouter.route("/:id").delete(deleteReservation);
+// reservationRouter.route("/").get(getAllReservations);
+
+reservationRouter
+  .route("/:id")
+  .post(createReservation)
+  .delete(deleteReservation);
 
 export default reservationRouter;

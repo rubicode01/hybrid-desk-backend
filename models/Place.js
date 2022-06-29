@@ -10,8 +10,7 @@ const placeSchema = new Schema({
   unavailable: {
     type: [
       {
-        from: { type: Date },
-        to: { type: Date },
+        date: { type: Date },
       },
     ],
   },

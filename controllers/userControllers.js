@@ -6,6 +6,8 @@ export const signUp = async (req, res) => {
   try {
     const { first_name, last_name, email, password, image } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    //neuen User in Datenbank schreiben
     const newUser = await User.create({
       first_name,
       last_name,
@@ -17,8 +19,6 @@ export const signUp = async (req, res) => {
     //token
 
     const token = jwt.sign(
-      { first_name: newUser.first_name },
-      { last_name: newUser.last_name },
       { email: newUser.email }, //payload
       process.env.JWT_SECRET, // secret
       { expiresIn: "1h" } // options
@@ -50,7 +50,7 @@ export const logIn = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      res.status(200).set("Authorization", token).send("Login successful");
+      res.status(200).set("Authorization", token).send("Login successful"); //zusätzlich schicken: findUser._id
     } else {
       res.status(401).send("Unauthorized");
     }
