@@ -6,13 +6,13 @@ const { Schema, model } = mongoose;
 
 const reservationSchema = new Schema({
   // Informationen über den User der buchen will
-  user: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 
   // Sitzplatz den sich der User ausgesucht hat
-  place: {
+  place_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Place",
   },

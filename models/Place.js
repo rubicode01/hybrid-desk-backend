@@ -8,11 +8,12 @@ const placeSchema = new Schema({
   workplace: { type: Boolean },
   meetingroom: { type: Boolean },
   unavailable: {
-    type: [
-      {
-        date: { type: Date },
-      },
-    ],
+    type: Array,
+    // type: [
+    //   {
+    //     date: { type: Date },
+    //   },
+    // ],
   },
   // floor: { type: Number },
   seat: { type: Number },

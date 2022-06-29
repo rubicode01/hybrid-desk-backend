@@ -9,15 +9,11 @@ export const getAllAvailablePlacesbyLocation = async (req, res) => {
 //den controller benutzen ausschließlich Admins
 export const createPlace = async (req, res) => {
   try {
-    const { location, workplace, meetingroom, date, time, floor, seat } =
-      req.body;
+    const { location, workplace, meetingroom, seat } = req.body;
     const newPlace = await Place.create({
       location,
       workplace,
       meetingroom,
-      date,
-      time,
-      floor,
       seat,
     });
     res.status(201).json(newPlace);

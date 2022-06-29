@@ -12,7 +12,7 @@ const reservationRouter = express.Router();
 // reservationRouter.route("/").get(getAllReservations);
 
 reservationRouter
-  .route("/:id")
+  .route("/:user_id")
   .post(createReservation)
   .delete(deleteReservation);
 
