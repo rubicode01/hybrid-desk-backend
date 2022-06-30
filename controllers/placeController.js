@@ -2,8 +2,8 @@ import Place from "../models/Place.js";
 
 export const getAllAvailablePlacesbyLocation = async (req, res) => {
   try {
-    const { location, date } = req.query;
-    const findAllAvailablePlaces = await Place.find({ location, date });
+    const { location } = req.query;
+    const findAllAvailablePlaces = await Place.find({ location });
     res.status(201).json(findAllAvailablePlaces);
   } catch (error) {
     res.status(500).json("not possible");
