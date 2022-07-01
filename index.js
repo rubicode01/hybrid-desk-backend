@@ -5,12 +5,10 @@ import protectedRoute from "./routes/protectedRoutes.js";
 import userRouter from "./routes/userRouter.js";
 import placeRouter from "./routes/placeRouter.js";
 import reservationRouter from "./routes/reservationRouter.js";
-// import placeRouter from "./routes/placeRouter.js";
 
-// import protectedRoute from "./routes/protectedRoutes.js";
-// import users from "./routes/userRouter.js";
-// import cors from "cors";
-
+import cors from "cors";
+import { upload } from "./middleware/multer.js";
+import path from "path";
 
 
 const app = express();
@@ -38,16 +36,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 
-//Image Upload
-// app.get("/upload", (req, res) => {
-//   res.render("upload");
-// });
-// app.post("/upload",upload.single('image'), (req, res) => {
-//   res.send("Image Uploaded");
-// });
+//Multer Upload
+app.use(express.static(path.resolve("./public")));
+app.post("/single", upload.single("images"), (req, res) => {
+  console.log(req.file);
+  res.send("Profile Image uploaded successfully");
+});
 
-//Router Place
-app.use("/api/place", placeRouter);
 
 //User
 app.use("/user", userRouter);

@@ -4,6 +4,8 @@ import {
   logIn,
   signUp,
   verifySession,
+  getSingleUser,
+  getUserInfo,
   // updateSingleUser,
   // deleteSingleUser,
 } from "../controllers/userControllers.js";
@@ -14,7 +16,7 @@ const userRouter = express.Router();
 //User Router => authorization & authentification
 userRouter.post("/signup", signUp); // create User Account
 userRouter.post("/login", logIn); // User-Login
-userRouter.get("/verify", verifyToken, verifySession); // verify-User
+userRouter.get("/verify", verifyToken, getUserInfo); // verify-User
 
 //Nice to have
 // userRouter.put(updateSingleUser); // User Update
@@ -23,9 +25,7 @@ userRouter.get("/verify", verifyToken, verifySession); // verify-User
 //User Admin Router -> get all Users
 userRouter.route("/").get(getAllUsers);
 
-// userRouter
-//   .route("/:id")
-//   .get(getSingleUser)
+userRouter.route("/:id").get(getSingleUser);
 //   .put(updateSingleUser)
 //   .delete(deleteSingleUser);
 
