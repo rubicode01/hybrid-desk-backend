@@ -6,6 +6,8 @@ import userRouter from "./routes/userRouter.js";
 import placeRouter from "./routes/placeRouter.js";
 import reservationRouter from "./routes/reservationRouter.js";
 import cors from "cors";
+import { upload } from "./middleware/multer.js";
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,6 +20,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+//Multer Upload
+app.use(express.static(path.resolve("./public")));
+app.post("/single", upload.single("images"), (req, res) => {
+  console.log(req.file);
+  res.send("Profile Image uploaded successfully");
+});
 
 //User
 app.use("/user", userRouter);

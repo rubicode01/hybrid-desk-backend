@@ -50,7 +50,7 @@ export const logIn = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      res.status(200).set("Authorization", token).send("Login successful"); //zusätzlich schicken: findUser._id
+      res.status(200).set("Authorization", token).json(findUser); //zusätzlich schicken: findUser._id
     } else {
       res.status(401).send("Unauthorized");
     }
