@@ -1,22 +1,33 @@
 import express from "express";
 import {
   getAllUsers,
-  createNewUser,
-  getSingleUser,
-  updateSingleUser,
+  logIn,
+  signUp,
+  verifySession,
   // updateSingleUser,
-  deleteSingleUser,
+  // deleteSingleUser,
 } from "../controllers/userControllers.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const userRouter = express.Router();
 
-//Allgemein / Must have // USER ROUTER
-userRouter.route("/").get(getAllUsers).post(createNewUser);
-userRouter
-  .route("/:id")
-  .get(getSingleUser)
-  .put(updateSingleUser)
-  .delete(deleteSingleUser);
+//User Router => authorization & authentification
+userRouter.post("/signup", signUp); // create User Account
+userRouter.post("/login", logIn); // User-Login
+userRouter.get("/verify", verifyToken, verifySession); // verify-User
+
+//Nice to have
+// userRouter.put(updateSingleUser); // User Update
+// userRouter.delete(deleteSingleUser); // delete User Account
+
+//User Admin Router -> get all Users
+userRouter.route("/").get(getAllUsers);
+
+// userRouter
+//   .route("/:id")
+//   .get(getSingleUser)
+//   .put(updateSingleUser)
+//   .delete(deleteSingleUser);
 
 // .put(updateSingleUser)
 // .delete(deleteSingleUser);

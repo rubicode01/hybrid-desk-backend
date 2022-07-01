@@ -5,14 +5,21 @@ import Place from "../models/Place.js";
 const { Schema, model } = mongoose;
 
 const reservationSchema = new Schema({
-  user: {
+  // Informationen über den User der buchen will
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  place: {
+
+  // Sitzplatz den sich der User ausgesucht hat
+  place_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Place",
   },
+
+  // zeitraum (von /bis) der User den Platz in anspuch nehmen will
+  date: { type: Date },
+
   // user: [{ type: Schema.Types.ObjectId, ref: "User" }],
   // newPlace: [{ type: Schema.Types.ObjectId, ref: "Place" }],
 });
