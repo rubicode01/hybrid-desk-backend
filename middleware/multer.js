@@ -12,17 +12,17 @@ const fileStorageEngine = multer.diskStorage({
     cb(null, "./images"); //important this is a direct path from our current file to storage location
   },
   filename: (req, file, cb) => {
-    cb(null, {user{firstName: lastName}});
+
+    cb(null, Date.now() + path.extname(file.originalname));
+
   },
 });
 
-// Route To Load Index.html page to browser
+//Route To Load Index.html page to browser
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "UploadAvatar.js"));
 });
 
-// The Multer Middleware that is passed to routes that will receive income requests with file data (multipart/formdata)
-// You can create multiple middleware each with a different storage engine config so save different files in different locations on server
 const upload = multer({ storage: fileStorageEngine });
 
 // Single File Route Handler
@@ -30,6 +30,5 @@ app.post("/single", upload.single("image"), (req, res) => {
   console.log(req.file);
   res.send("Profile Image uploaded successfully");
 });
-
 
 app.listen(5000);
