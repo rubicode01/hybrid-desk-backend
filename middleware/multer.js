@@ -6,9 +6,11 @@ const fileStorageEngine = multer.diskStorage({
     cb(null, "./public/images"); //important this is a direct path from our current file to storage location
   },
   filename: (req, file, cb) => {
+
     const extension = file.mimetype.split("/");
     cb(null, `${file.fieldname}-${Date.now()}.${extension[1]}`);
   },
 });
 
 export const upload = multer({ storage: fileStorageEngine });
+
