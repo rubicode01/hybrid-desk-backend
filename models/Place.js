@@ -17,6 +17,7 @@ const placeSchema = new Schema({
   },
   // floor: { type: Number },
   seat: { type: Number },
+  meetingnumber: { type: Number },
 
   // user: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });

@@ -10,7 +10,6 @@ import cors from "cors";
 import { upload } from "./middleware/multer.js";
 import path from "path";
 
-
 const app = express();
 const port = process.env.PORT || 5000;
 // const multer = require("multer");
@@ -28,13 +27,13 @@ const port = process.env.PORT || 5000;
 
 //Middleware
 const corsOptions = {
-  origin: process.env.REACT_APP_URI, // nur Zugriff von dieser Domain erlauben
+  origin: "http://localhost:8100",
+  //process.env.REACT_APP_URI, // nur Zugriff von dieser Domain erlauben
   exposedHeaders: "Authorization", //dem Frontend Zugriff auf die Header-Property "Authorization" geben
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
 
 //Multer Upload
 app.use(express.static(path.resolve("./public")));
@@ -43,12 +42,9 @@ app.post("/single", upload.single("images"), (req, res) => {
   res.send("Profile Image uploaded successfully");
 });
 
-
 //User
 app.use("/user", userRouter);
 app.use("/info", protectedRoute); //bookingprocess
-app.get("/", (req, res) => res.send("geht"));
-
 
 // //Place
 app.use("/place", placeRouter);
@@ -57,5 +53,5 @@ app.use("/place", placeRouter);
 app.use("/reservation", reservationRouter);
 
 //All
-
+app.get("/", (req, res) => res.send("geht"));
 app.listen(port, () => console.log(`Server listening on port ${port}`));
