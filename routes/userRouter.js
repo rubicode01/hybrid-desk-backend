@@ -6,7 +6,7 @@ import {
   verifySession,
   getSingleUser,
   getUserInfo,
-  // updateSingleUser,
+  updateSingleUser,
   // deleteSingleUser,
 } from "../controllers/userControllers.js";
 import { verifyToken } from "../middleware/verifyToken.js";
@@ -25,11 +25,10 @@ userRouter.get("/verify", verifyToken, getUserInfo); // verify-User
 //User Admin Router -> get all Users
 userRouter.route("/").get(getAllUsers);
 
-userRouter.route("/:id").get(getSingleUser);
-//   .put(updateSingleUser)
+userRouter.route("/:id").get(getSingleUser).put(updateSingleUser);
 //   .delete(deleteSingleUser);
 
-// .put(updateSingleUser)
+// userRouter.route("/:id").put(updateSingleUser);
 // .delete(deleteSingleUser);
 
 //Nice to have
