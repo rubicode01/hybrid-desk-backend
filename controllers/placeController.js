@@ -2,9 +2,21 @@ import Place from "../models/Place.js";
 
 export const getAllAvailablePlacesbyLocation = async (req, res) => {
   try {
-    const { location } = req.query;
-    const findAllAvailablePlaces = await Place.find({ location });
-    res.status(201).json(findAllAvailablePlaces);
+    const { location, room } = req.query;
+    console.log(room); //loggt meetingroom bzw workplace
+    if (room == "meetingroom") {
+      const findAllAvailableMeetingrooms = await Place.find({
+        location,
+        meetingroom: true,
+      });
+      res.status(200).json(findAllAvailableMeetingrooms);
+    } else if (room == "workplace") {
+      const findAllAvailableWorkplaces = await Place.find({
+        location,
+        workplace: true,
+      });
+      res.status(200).json(findAllAvailableWorkplaces);
+    }
   } catch (error) {
     res.status(500).json("not possible");
   }

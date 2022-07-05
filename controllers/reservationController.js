@@ -65,6 +65,16 @@ export const createReservation = async (req, res) => {
   }
 };
 
+export const getSingleReservation = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const singleReservation = await Reservation.findById(user_id);
+    res.status(200).json(singleReservation);
+  } catch (error) {
+    res.status(500).json(err);
+  }
+};
+
 export const deleteReservation = async (req, res) => {
   try {
     const { id } = req.params;
