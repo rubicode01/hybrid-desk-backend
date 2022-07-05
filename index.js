@@ -27,8 +27,8 @@ const port = process.env.PORT || 5000;
 
 //Middleware
 const corsOptions = {
-  origin: process.env.REACT_APP_URI,
-  // origin: "http://localhost:8100",
+  // origin: process.env.REACT_APP_URI,
+  origin: "http://localhost:8100",
   // nur Zugriff von dieser Domain erlauben
   exposedHeaders: "Authorization", //dem Frontend Zugriff auf die Header-Property "Authorization" geben
 };

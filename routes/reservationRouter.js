@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllReservations,
+  getSingleReservation,
   createReservation,
   deleteReservation,
 } from "../controllers/reservationController.js";
@@ -13,6 +14,7 @@ const reservationRouter = express.Router();
 
 reservationRouter
   .route("/:user_id")
+  .get(getSingleReservation)
   .post(createReservation)
   .delete(deleteReservation);
 
