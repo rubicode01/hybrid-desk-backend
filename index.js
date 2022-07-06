@@ -29,8 +29,8 @@ const port = process.env.PORT || 5000;
 const corsOptions = {
   // origin: process.env.REACT_APP_URI,
   origin: "http://localhost:8100",
-  // nur Zugriff von dieser Domain erlauben
-  exposedHeaders: "Authorization", //dem Frontend Zugriff auf die Header-Property "Authorization" geben
+
+  exposedHeaders: "Authorization",
 };
 
 app.use(cors(corsOptions));
@@ -45,7 +45,7 @@ app.post("/single", upload.single("images"), (req, res) => {
 
 //User
 app.use("/user", userRouter);
-app.use("/info", protectedRoute); //bookingprocess
+app.use("/info", protectedRoute);
 
 // //Place
 app.use("/place", placeRouter);
