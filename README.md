@@ -46,6 +46,7 @@ nodemon
 
 ### planned Features
 - ProfileImage Upload with Multer
+- Admin-Channel
 
 ------------
 
