@@ -1,15 +1,6 @@
 import Place from "../models/Place.js";
 import Reservation from "../models/Reservation.js";
 
-// export const getAllReservations = async (req, res) => {
-//   try {
-//     const allReservations = await Reservation.find();
-//     res.status(200).json({ reservations: allReservations });
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// };
-
 export const getAllReservations = async (req, res) => {
   try {
     const allReservations = await Reservation.find(req.query).populate(
@@ -36,8 +27,8 @@ export const deleteAllReservations = async (req, res) => {
 
 export const createReservation = async (req, res) => {
   try {
-    const { user_id } = req.params; //woher wollt ihr die user ID ziehen / wie wollt ihr sie vom frontend aus verschicken? (params is meine empfehlung)
-    const { place_id, date } = req.body; // mit den infos aus der overview seite
+    const { user_id } = req.params;
+    const { place_id, date } = req.body;
     // console.log(user_id, place_id, date);
     const newReservation = await Reservation.create({
       user_id,
@@ -54,11 +45,6 @@ export const createReservation = async (req, res) => {
     );
     console.log(updatePlaceUnavailability);
 
-    //   //ihr braucht place id und datetime
-    //   //places model importieren
-    //   //Places.findByIdAndUpdate(wo id = placeid & was soll gemacht werden -> unavaible field updaten indem datetime in den array gepusht wird)
-    //
-
     res.status(201).json(newReservation);
   } catch (error) {
     res.status(500).json("Something went wrong!");
@@ -68,10 +54,17 @@ export const createReservation = async (req, res) => {
 export const getSingleReservation = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const singleReservation = await Reservation.findById(user_id);
-    res.status(200).json(singleReservation);
+    const { place_id, date } = req.body;
+    console.log(user_id, place_id, date);
+    const newReservation = await Reservation.findById({
+      user_id,
+      place_id,
+      date,
+    });
+
+    res.status(201).json(newReservation);
   } catch (error) {
-    res.status(500).json(err);
+    res.status(500).json("Something went wrong!");
   }
 };
 

@@ -7,7 +7,6 @@ export const signUp = async (req, res) => {
     const { first_name, last_name, email, password, image } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    //neuen User in Datenbank schreiben
     const newUser = await User.create({
       first_name,
       last_name,
@@ -22,7 +21,6 @@ export const signUp = async (req, res) => {
       { email: newUser.email }, //payload
       process.env.JWT_SECRET, // secret
       { expiresIn: "1h" } // options
-      // { image: newUser.image } //?? check
     );
     if (token && newUser) {
       res
@@ -38,19 +36,19 @@ export const signUp = async (req, res) => {
 export const logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    //User finden
+
     const findUser = await User.findOne({ email }).select("+password");
-    //Checken, ob PW korrekt
+
     const isPasswordCorrect = await bcrypt.compare(password, findUser.password);
-    console.log(isPasswordCorrect); //returnt true oder false
-    //Falls ja token kreieren und zurückschicken
+    console.log(isPasswordCorrect);
+
     if (isPasswordCorrect) {
       const token = jwt.sign(
         { email: findUser.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      res.status(200).set("Authorization", token).json(findUser); //zusätzlich schicken: findUser._id
+      res.status(200).set("Authorization", token).json(findUser);
     } else {
       res.status(401).send("Unauthorized");
     }
@@ -73,8 +71,6 @@ export const verifySession = (req, res) => {
   res.status(200).send("Token successfully verified");
 };
 
-//???
-
 export const updateSingleUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -90,7 +86,6 @@ export const updateSingleUser = async (req, res) => {
   }
 };
 
-//Admin
 export const getAllUsers = async (req, res) => {
   try {
     const allUser = await User.find();
