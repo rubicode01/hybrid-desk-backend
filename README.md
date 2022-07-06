@@ -1,5 +1,10 @@
 # Hybrid Desk - Backend
 
+<div align="center">  
+<img style="margin: 10px" src="https://github.com/ChristianScholtysik/hybrid-desk/blob/master/src/components/img/HybridDesk_title.png" alt="Hybrid Desk App" height="75" />  
+</div>  
+
+
 ------------
 
 ## Description
